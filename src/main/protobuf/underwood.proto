@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package co.bagman.protos;
+
+
+service LiveChecker {
+  rpc Live(LiveRequest) returns (LiveReply) {}
+}
+
+message LiveRequest {}
+
+message LiveReply {
+  string message = 1;
+}
