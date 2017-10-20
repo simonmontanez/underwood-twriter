@@ -1,11 +1,11 @@
 package co.bagman.underwood
 
-import java.util.concurrent.Executors
+import java.util.concurrent.{Executors, TimeUnit}
 
 import co.bagman.protos.underwood.{LiveCheckerGrpc, LiveReply, LiveRequest}
 import co.bagman.underwood.services.LiveCheckerImpl
 import io.grpc.{Server, ServerBuilder}
-
+import io.grpc.protobuf.services.ProtoReflectionService
 import scala.concurrent.{ExecutionContext, Future}
 
 object MainServer{
@@ -31,12 +31,18 @@ class MainServer(ex:ExecutionContext) { self =>
 
   private def start():Unit = {
 
+    val a = TimeUnit.SECONDS.toNanos(499L)
+
+    println(s"nanos:$a")
+
     server = ServerBuilder.forPort(MainServer.port)
       .addService(LiveCheckerGrpc.bindService(
         new LiveCheckerImpl, ex
       ))
+      .addService(ProtoReflectionService.newInstance())
       .build()
       .start()
+
 
     sys.addShutdownHook{
       System.err.println("*** shutting down gRPC server since JVM is shutting down")

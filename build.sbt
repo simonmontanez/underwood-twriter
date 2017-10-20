@@ -19,6 +19,7 @@ PB.targets in Compile := Seq(
 libraryDependencies  ++= Seq(
   "com.trueaccord.scalapb" %% "scalapb-runtime"       % scalapbVersion % "protobuf",
   "com.trueaccord.scalapb" %% "scalapb-runtime-grpc"  % scalapbVersion,
-  "io.grpc"                 % "grpc-netty"            % grpcJavaVersion
+  "io.grpc"                 % "grpc-netty"            % grpcJavaVersion,
+  "io.grpc"                 % "grpc-services"         % grpcJavaVersion
 )
 
